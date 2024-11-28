@@ -1,7 +1,8 @@
-import { Tabs } from 'expo-router';
+import { Tabs ,Slot } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
-
+// Import your global CSS file
+import '../../global.css'
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
