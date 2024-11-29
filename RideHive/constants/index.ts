@@ -74,23 +74,23 @@ export const icons = {
 export const onboarding = [
   {
     id: 1,
-    title: "The perfect ride is just a tap away!",
+    title: "Ideal rides, one tap away!",
     description:
-      "Your journey begins with RideHive. Find your ideal ride effortlessly.",
+      "Start your journey with RideHive connecting you to your perfect ride with ease.",
     image: onboarding1,
   },
   {
     id: 2,
-    title: "Best car in your hands with RideHive",
+    title: "Your car, your choice with RideHive!",
     description:
-      "Discover the convenience of finding your perfect ride with RideHive",
+      "Experience seamless travel by finding your perfect ride with RideHive.",
     image: onboarding2,
   },
   {
     id: 3,
-    title: "Your ride, your way. Let's go!",
+    title: "Ride your way with RideHive!",
     description:
-      "Enter your destination, sit back, and let us take care of the rest.",
+      "Simply choose your destination, relax, and let RideHive handle the journey.",
     image: onboarding3,
   },
 ];
