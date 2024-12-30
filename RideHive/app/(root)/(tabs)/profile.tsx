@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Text, TextInput, View, Button, TouchableOpacity, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import useClickStore from "../../../store/useClickStore"; // Import Zustand store
 
 const Profile = () => {
   // State to hold user profile data
@@ -9,6 +10,9 @@ const Profile = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+
+  // Access Zustand store for click count and increment function
+  const { clickCount, increment } = useClickStore();
 
   // Function to handle logout
   const handleLogout = () => {
@@ -21,6 +25,13 @@ const Profile = () => {
       ],
       { cancelable: false }
     );
+    increment(); // Increment click count when logout button is clicked
+  };
+
+  // Function to handle saving profile changes
+  const handleSaveChanges = () => {
+    Alert.alert("Profile Saved!");
+    increment(); // Increment click count when Save Changes button is clicked
   };
 
   return (
@@ -39,8 +50,8 @@ const Profile = () => {
             marginBottom: 10,
             backgroundColor: "#f5f5f5", // Gray background color
           }}
-          placeholder="Change FirstName" // Placeholder text
-          placeholderTextColor="#888" // Set placeholder text color to gray
+          placeholder="Change FirstName"
+          placeholderTextColor="#888"
           value={firstName}
           onChangeText={setFirstName}
         />
@@ -53,10 +64,10 @@ const Profile = () => {
             padding: 10,
             borderRadius: 8,
             marginBottom: 10,
-            backgroundColor: "#f5f5f5", // Gray background color
+            backgroundColor: "#f5f5f5",
           }}
-          placeholder="Change LastName" // Placeholder text
-          placeholderTextColor="#888" // Set placeholder text color to gray
+          placeholder="Change LastName"
+          placeholderTextColor="#888"
           value={lastName}
           onChangeText={setLastName}
         />
@@ -69,10 +80,10 @@ const Profile = () => {
             padding: 10,
             borderRadius: 8,
             marginBottom: 10,
-            backgroundColor: "#f5f5f5", // Gray background color
+            backgroundColor: "#f5f5f5",
           }}
-          placeholder="Change Email" // Placeholder text
-          placeholderTextColor="#888" // Set placeholder text color to gray
+          placeholder="Change Email"
+          placeholderTextColor="#888"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
@@ -86,10 +97,10 @@ const Profile = () => {
             padding: 10,
             borderRadius: 8,
             marginBottom: 10,
-            backgroundColor: "#f5f5f5", // Gray background color
+            backgroundColor: "#f5f5f5",
           }}
-          placeholder="Add Phone Number" // Placeholder text
-          placeholderTextColor="#888" // Set placeholder text color to gray
+          placeholder="Add Phone Number"
+          placeholderTextColor="#888"
           value={phone}
           onChangeText={setPhone}
           keyboardType="phone-pad"
@@ -97,7 +108,7 @@ const Profile = () => {
       </View>
 
       {/* Save Profile Changes */}
-      <Button title="Save Changes" onPress={() => Alert.alert("Profile Saved!")} />
+      <Button title="Save Changes" onPress={handleSaveChanges} />
 
       {/* Logout Button */}
       <TouchableOpacity
@@ -112,6 +123,11 @@ const Profile = () => {
       >
         <Text style={{ color: "#fff", fontSize: 18 }}>Logout</Text>
       </TouchableOpacity>
+
+      {/* Display Click Count */}
+      <View style={{ marginTop: 20, alignItems: "center" }}>
+        <Text style={{ fontSize: 16, color: "#333" }}>Click Count: {clickCount}</Text>
+      </View>
     </SafeAreaView>
   );
 };

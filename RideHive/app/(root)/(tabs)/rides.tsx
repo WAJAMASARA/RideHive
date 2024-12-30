@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, FlatList } from "react-native";
+import { Text, View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import useClickStore from "../../../store/useClickStore"; // Import Zustand store
 
 const Rides = () => {
   // Sample ride history data
@@ -27,6 +28,14 @@ const Rides = () => {
     },
   ];
 
+  const { clickCount, increment } = useClickStore(); // Access Zustand store to manage the click count
+
+  const handleCardClick = (ride) => {
+    increment();
+    // Handle card click, you can navigate or show details in an alert/modal
+    alert(`Ride Details: ${ride.driverName} to ${ride.destination}`);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Ride History</Text>
@@ -34,14 +43,19 @@ const Rides = () => {
         data={rideHistory}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.card}>
+          <TouchableOpacity onPress={() => handleCardClick(item)} style={styles.card}>
             <Text style={styles.info}>Driver: {item.driverName}</Text>
             <Text style={styles.info}>Destination: {item.destination}</Text>
             <Text style={styles.info}>Booked Time: {item.bookedTime}</Text>
             <Text style={styles.info}>Total Cost: {item.totalCost}</Text>
-          </View>
+          </TouchableOpacity>
         )}
       />
+
+      {/* Floating Button */}
+      <TouchableOpacity style={styles.floatingButton} >
+        <Text style={styles.floatingButtonText}>{clickCount}</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -69,6 +83,24 @@ const styles = StyleSheet.create({
   info: {
     fontSize: 18,
     marginBottom: 10,
+  },
+  floatingButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#6200ea",
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 5,
+    marginBottom: 200,
+  },
+  floatingButtonText: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
 
