@@ -25,7 +25,7 @@ const Profile = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, padding: 20 }}>
-      <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 60 }}>Profile</Text>
+      <Text className="text-2xl font-JakartaBold mb-20 text-center">Profile</Text>
 
       {/* Profile Details Section */}
       <View style={{ marginBottom: 30 }}>
