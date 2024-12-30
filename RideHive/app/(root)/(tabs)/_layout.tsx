@@ -57,6 +57,7 @@ export default function Layout() {
         name="home"
         options={{
           title: "Home",
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <TabIcon source={icons.home} focused={focused} />
           ),
@@ -67,6 +68,7 @@ export default function Layout() {
         name="rides"
         options={{
           title: "Rides",
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <TabIcon source={icons.list} focused={focused} />
           ),
@@ -77,6 +79,7 @@ export default function Layout() {
         name="chat"
         options={{
           title: "Chat",
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <TabIcon source={icons.chat} focused={focused} />
           ),
@@ -87,6 +90,7 @@ export default function Layout() {
         name="profile"
         options={{
           title: "Profile",
+          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <TabIcon source={icons.profile} focused={focused} />
           ),
