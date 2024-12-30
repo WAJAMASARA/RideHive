@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
-// Example mock API endpoint (replace this with your actual API)
-const API_URL = "https://jsonplaceholder.typicode.com/users"; // Example API, replace with actual data source
+const API_URL = "https://jsonplaceholder.typicode.com/users"; // Example API for driver data source
 
 const Home = () => {
   const route = useRoute();
   const { name } = route.params || {}; // Retrieve the 'name' parameter from the route
+
+  // Default vehicle types list
+  const vehicleTypes = ["Sedan", "SUV", "Truck", "Minivan", "Convertible", "Coupe", "Hatchback"];
 
   // State to hold the fetched driver data
   const [drivers, setDrivers] = useState([]);
@@ -21,11 +23,11 @@ const Home = () => {
         const response = await fetch(API_URL); // Fetch data from the API
         const data = await response.json();
         
-        // Format the data as needed (for the example, we're using a mock response)
-        setDrivers(data); 
+        // Format the data as needed
+        setDrivers(data);
         setLoading(false);
       } catch (err) {
-        setError("Failed to load data.");
+        setError("Failed to load driver data.");
         setLoading(false);
       }
     };
@@ -39,21 +41,29 @@ const Home = () => {
   };
 
   // Render driver item
-  const renderDriver = ({ item }) => (
-    <View style={styles.driverCard}>
-      <Text style={styles.driverName}>{item.name}</Text>
-      <Text style={styles.driverDetails}>Location: {item.address.city}</Text>
-      <Text style={styles.driverDetails}>Hourly Rate: ${Math.random() * (30 - 15) + 15}</Text> {/* Random rate for demo */}
-      <Text style={styles.driverDetails}>Vehicle: Sedan</Text> {/* Example vehicle */}
-      
-      <TouchableOpacity
-        style={styles.bookButton}
-        onPress={() => handleBook(item.name)} // Handle booking for each driver
-      >
-        <Text style={styles.bookButtonText}>Book</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  const renderDriver = ({ item }) => {
+    // Generate a random hourly rate for demonstration (formatted to 2 decimal places)
+    const hourlyRate = (Math.random() * (30 - 15) + 15).toFixed(2);
+
+    // Select a random vehicle type from the default list
+    const vehicleType = vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)];
+
+    return (
+      <View style={styles.driverCard}>
+        <Text style={styles.driverName}>{item.name}</Text>
+        <Text style={styles.driverDetails}>Location: {item.address.city}</Text>
+        <Text style={styles.driverDetails}>Hourly Rate: ${hourlyRate}</Text> {/* Display the formatted hourly rate */}
+        <Text style={styles.driverDetails}>Vehicle: {vehicleType}</Text> {/* Display the vehicle type */}
+        
+        <TouchableOpacity
+          style={styles.bookButton}
+          onPress={() => handleBook(item.name)} // Handle booking for each driver
+        >
+          <Text style={styles.bookButtonText}>Book</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -87,6 +97,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
+    marginTop: 20,
   },
   availableDriversText: {
     fontSize: 18,
