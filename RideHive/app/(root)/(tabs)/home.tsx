@@ -1,12 +1,18 @@
-import { Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React from "react";
+import { Text, View } from "react-native";
+import { useRoute } from "@react-navigation/native";
 
 const Home = () => {
+  const route = useRoute(); // Use this to access route parameters
+  const { name } = route.params; // Get 'name' parameter from the route
+
   return (
-    <SafeAreaView>
-      <Text>Home</Text>
-    </SafeAreaView>
+    <View>
+      <Text>Welcome, {name}!</Text>
+    </View>
   );
 };
 
 export default Home;
+
+
